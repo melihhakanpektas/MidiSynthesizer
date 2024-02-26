@@ -1,7 +1,7 @@
 plugins {
+    id 'maven-publish'
     id 'com.android.library'
 }
-
 
 android {
     namespace 'com.melihhakanpektas.midisynthesizer'
@@ -33,4 +33,48 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+group = 'com.melihhakanpektas'
+version = '1.0'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'midisynthesizer'
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Midi Synthesizer'
+                description = 'A simple MIDI synthesizer library for Android'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'melihhakanpektas'
+                        name = 'Melih Hakan Pektas'
+                        email = 'melihhakanpektas@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
 }
