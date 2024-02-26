@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MidiSynthesizerSample</string>
+    <string name="pianobuttonname">Piano</string>
+    <string name="woodblockbuttonname">Woodblock</string>
+</resources>
